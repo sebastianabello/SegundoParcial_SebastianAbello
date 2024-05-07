@@ -1,4 +1,6 @@
-package org.example.auditoria;
+package org.example.domain;
+
+import org.example.service.LogStrategy;
 
 public class DatabaseLogStrategy implements LogStrategy {
 

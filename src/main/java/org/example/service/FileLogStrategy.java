@@ -1,5 +1,6 @@
-package org.example.auditoria;
+package org.example.service;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,7 +8,15 @@ import java.io.PrintWriter;
 public class FileLogStrategy implements LogStrategy {
     @Override
     public void logError(String error) {
-        try (FileWriter fileWriter = new FileWriter("log.txt", true);
+        String logFilePath = "./log.txt";
+        File logFile = new File(logFilePath);
+        File logDirectory = new File(logFile.getParent());
+
+        if (!logDirectory.exists()) {
+            logDirectory.mkdirs();
+        }
+
+        try (FileWriter fileWriter = new FileWriter(logFile, true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
             printWriter.println(error);
         } catch (IOException e) {
